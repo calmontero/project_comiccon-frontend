@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 const BASE_URL = 'http://localhost:9292/';
 
-function ProgramsForm({ onAddProgram }) {
+function ProgramsForm({ onAddProgram, onUpdateProgram, modeState }) {
+    const id = onUpdateProgram.id;
+
     const[form, setForm] = useState({
         name: "",
         desc: "",
@@ -16,7 +18,22 @@ function ProgramsForm({ onAddProgram }) {
         status: "true"
     });
 
+    if (modeState === true) {
+        form.name = onUpdateProgram.name;
+        form.desc = onUpdateProgram.desc;
+        form.sponsor = onUpdateProgram.sponsor;
+        form.sits = onUpdateProgram.quantity_fan;
+        form.room = onUpdateProgram.room;
+        form.image = onUpdateProgram.image_url  
+    }
+      
     function handleSubmit(e) {
+        return !modeState
+        ? createProgram(e)
+        : updateProgram(e);
+    }
+
+    function createProgram(e) {
         e.preventDefault();
         fetch(BASE_URL + "programs", {
           method: "POST",
@@ -34,7 +51,26 @@ function ProgramsForm({ onAddProgram }) {
           }),
         })
         .then((response) => response.json())
-        .then((newProgram) => onAddProgram(newProgram))
+        .then((newProgram) => onAddProgram(newProgram)) 
+    }
+
+    function updateProgram(e) {
+        fetch(BASE_URL + `programs/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ 
+            name: form.name,
+            desc: form.desc,
+            sponsor: form.sponsor,
+            quantity_fan: form.sits,
+            room: form.room,
+            image_url: form.image
+            }),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            },
+        })
+        .catch(err => console.log(err))
     }
 
     const updateField = e => {
@@ -46,12 +82,12 @@ function ProgramsForm({ onAddProgram }) {
 
     return (
         <div className="form">
-            <form  noValidate autoComplete="on" onSubmit={handleSubmit} >
+            <form  noValidate autoComplete="off" onSubmit={handleSubmit} >
                 <input 
                 type="text"
                 name="name"
                 placeholder="Enter a program's name..."
-                value={form.name}
+                defaultValue={form.name}
                 onChange={updateField}
                 />
 
@@ -59,7 +95,7 @@ function ProgramsForm({ onAddProgram }) {
                 type="text"
                 name="desc"
                 placeholder="Enter a program's desc..."
-                value={form.desc}
+                defaultValue={form.desc}
                 onChange={updateField}
                 />
                 
@@ -68,7 +104,7 @@ function ProgramsForm({ onAddProgram }) {
                 name="sponsor"
                 placeholder="Enter a sponsor..."
                 className="Input-text"
-                value={form.sponsor}
+                defaultValue={form.sponsor}
                 onChange={updateField}
                 />
                 
@@ -77,7 +113,7 @@ function ProgramsForm({ onAddProgram }) {
                 name="sits"
                 placeholder="Enter sits available..."
                 className="Input-text"
-                value={form.sits}
+                defaultValue={form.sits}
                 onChange={updateField}
                 />
                 
@@ -86,7 +122,7 @@ function ProgramsForm({ onAddProgram }) {
                 name="room"
                 placeholder="Enter number of room..."
                 className="Input-text"
-                value={form.room}
+                defaultValue={form.room}
                 onChange={updateField}
                 />
                 
@@ -95,11 +131,11 @@ function ProgramsForm({ onAddProgram }) {
                 name="image"
                 placeholder="Enter a program's image URL..."
                 className="Input-text"
-                value={form.image}
+                defaultValue={form.image}
                 onChange={updateField}
                 />
                 <br />
-                <button type="submit"variant="outlined" color="secondary">Create Program</button>                
+                <button type="submit"variant="outlined" color="secondary">{!modeState ? "Create Program" : "Update Program"}</button>                
             </form>
         </div>
     );

@@ -1,3 +1,17 @@
+### Projects Goals
+
+[X] Create Backend App
+    [X] Create DB
+    [X] Create db migrate
+    [X] Create models
+    [X] Create routes
+[] Create Frontend App
+    [X] Show programs
+    [X] Create a program
+    [X] Delete a program
+    [] Modify a program
+    [] Enroll a fan to a program
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import "./ProgramsDetails.css";
+import FansForm from "../FansForm/FansForm";
 const BASE_URL = 'http://localhost:9292/';
 
 function ProgramsDetails() {
@@ -16,12 +17,18 @@ function ProgramsDetails() {
     ),[]);
 
     return (
-        <div className="card">
-            <img src={program.image_url} 
-                 alt={program.name}
-                 className="program-img"
-            ></img>
-            <p>Descripction: {program.desc} </p>
+        <div className="container">
+            <div className="card">
+                <h2>{program.name}</h2>
+                <p>Descripction: {program.desc} </p>
+                <p>Sits available: {program.sits_available} </p>
+                <p>Room: {program.room} </p>
+                <p>Date: 08/20/2021 - Start: 10:00 am - End: 06:00 pm</p>
+                <p>Status: {program.status ? "Open" : "Closed"} </p>
+            </div>
+            <div className="fan">
+                <FansForm />
+            </div>
         </div>
     );
 }

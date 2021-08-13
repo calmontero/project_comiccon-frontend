@@ -13,8 +13,10 @@ const BASE_URL = 'http://localhost:9292/';
 
 function ProgramsContainer() {
     const [programs, setPrograms] = useState([]);
+    const [updateProgram, setUpdateProgram] = useState([]);
+    const [editMode, setEditMode] = useState(false);
 
-    //Recover the data
+    //Programs List
     useEffect(() => (
         fetch(BASE_URL + "programs")
           .then((response) => response.json())
@@ -26,14 +28,26 @@ function ProgramsContainer() {
         setPrograms(updatedPrograms);
     }
 
+    function handleUpdateProgram(updateProgram) {
+        setUpdateProgram(updateProgram);
+        setEditMode(!editMode);
+    }
+   
+    function handleDeleteProgram(id) {
+        const updatedPrograms = programs.filter((programList) => programList.id !== id);
+        setPrograms(updatedPrograms);
+    }
+
     return (
         <div className="program-container">
             <h1>Programs</h1>         
-            <ProgramsForm onAddProgram={handleAddProgram} />
+            <ProgramsForm onAddProgram={handleAddProgram}  onUpdateProgram={updateProgram} modeState={editMode} />
             { programs.map(program => {
                 return < ProgramCard
                             key={program.id}
-                            programs={program}
+                            program={program}
+                            onDeleteProgram = {handleDeleteProgram}
+                            onUpdateProgram = {handleUpdateProgram}
                             />
                 })
             }   

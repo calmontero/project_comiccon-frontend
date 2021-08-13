@@ -1,15 +1,19 @@
+.program-container {
+    background-color: #e04b52;
+}
+
 .card {
     text-align: center;
     border: grey solid 1px;
     padding: 1rem;
-    width: 50rem;
-    height: 28rem;
+    width: 70rem;
+    height: 18rem;
     margin: 1rem 2rem;
     box-shadow: 3px 4px #e04b52;
     line-height: 1.3;
     position: fixed;
-    top: 25%;
-    left: 50%;
+    top: 15%;
+    left: 18%;
     margin-top: -50px;
     margin-left: -100px;
     margin-right: -100px;
@@ -20,4 +24,12 @@
     justify-self: center;
     height: 17rem;
     width: auto;
+}
+
+.fan {
+    border: grey solid 1px;
+    margin-top: 375px;
+    margin-left: 180px;
+    width: 70rem;
+    position: fixed;
 }
