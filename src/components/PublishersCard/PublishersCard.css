@@ -1,0 +1,8 @@
+.card {
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid black;
+    width: 80vw;
+    min-height: 15vh;
+    background-color: bisque;
+}

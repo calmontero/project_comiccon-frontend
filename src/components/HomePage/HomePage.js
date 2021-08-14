@@ -5,8 +5,8 @@ function HomePage() {
     return (
         <div>
             <h2 className="home-page-header">Home Page</h2>
-            <p>Welcome to the Flatiroon ComicCon App</p>
-            <p>Choose your favorite program</p>
+            <p>Welcome to the Flatiroon Publishers App</p>
+            <p>Choose your favorite publisher</p>
         </div>
     )
 }

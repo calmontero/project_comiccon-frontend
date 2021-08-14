@@ -6,11 +6,11 @@
     [X] Create models
     [X] Create routes
 [] Create Frontend App
-    [X] Show programs
-    [X] Create a program
-    [X] Delete a program
-    [] Modify a program
-    [] Enroll a fan to a program
+    [X] Show publisher
+    [X] Create a publisher
+    [X] Delete a publisher
+    [X] Update a publisher
+    [] 
 
 # Getting Started with Create React App
 

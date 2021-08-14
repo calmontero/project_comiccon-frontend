@@ -1,9 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ProgramsContainer from './components/ProgramsContainer/ProgramsContainer';
 import HomePage from './components/HomePage/HomePage';
 import NavBar from "./components/NavBar/NavBar";
-import ProgramsDetails from './components/ProgramsDetails/ProgramsDetails';
+import PublishersContainer from "./components/PublishersContainer/PublishersContainer";
 
 function App() {
   return (
@@ -15,11 +14,11 @@ function App() {
           <Route exact path="/">
             <HomePage />
           </Route>
-          <Route exact path="/programs">
-            <ProgramsContainer />
+          <Route exact path="/publishers">
+            <PublishersContainer />
           </Route>
-          <Route path="/programs/:id">
-            <ProgramsDetails />
+          <Route path="/publishers/:id">
+            
           </Route>
         </Switch>
       </div>
