@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from './components/HomePage/HomePage';
 import NavBar from "./components/NavBar/NavBar";
 import PublishersContainer from "./components/PublishersContainer/PublishersContainer";
+import PublisherDetails from './components/PublisherDetails/PublisherDetails';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
             <PublishersContainer />
           </Route>
           <Route path="/publishers/:id">
-            
+            <PublisherDetails />
           </Route>
         </Switch>
       </div>

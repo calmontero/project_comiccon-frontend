@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 
-//const BASE_URL = 'http://localhost:9292/';
-
 function PublishersForm({ onAddPublisher }) {
   const[publisher, setPublisher] = useState({
       name: '',
