@@ -16,9 +16,8 @@ function PublisherDetails() {
         fetch(BASE_URL + `publishers/${id}`)
           .then((response) => response.json())
           .then((publisherData) => setPublisher(publisherData))
-    }, []);
-
-
+    }, [id]);
+    
     // CREATE
     function createCharacter(character) {
         fetch(BASE_URL + "characters", {
@@ -29,20 +28,19 @@ function PublisherDetails() {
                 "Content-Type": "application/json",
             },
         })
-        .then((response) => response.json())
+        .then((response) => console.log(response.json()))
         .then((characterData) => setCharacter([...character, characterData]));
     }
 
     function populateCharacters() {
-        const personajes = publisher.characters.map((pCharacter) => pCharacter.name);
-        console.log(personajes);
+        return <CharactersTable  characters={publisher.characters} />
     }
 
     return (
         <div className="main">
             <div className="container">
                 <div className="image">
-                    <img src={publisher.image_url} alt=""/>
+                    <img src={publisher.url} alt=""/>
                 </div>
                 <div className="text">
                     <h1>{publisher.name}</h1>
@@ -52,8 +50,8 @@ function PublisherDetails() {
             </div>
             <div>
                 <h2>Characters</h2>
-                <CharactersForm onAddCharacter={createCharacter} publisher={publisher} />
-                <CharactersTable publisher={publisher} />
+                <CharactersForm onAddCharacter={createCharacter} id={id} />
+                {publisher.characters && populateCharacters()}
             </div>
         </div>
     );

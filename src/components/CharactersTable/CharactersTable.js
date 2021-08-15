@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,43 +8,25 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const BASE_URL = 'http://localhost:9292/';
-
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: 550,
   },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-function CharacterTable({ publisher }) {
-  const [characters, setCharacters] = useState([]);
+function CharactersTable({ characters }) {
+  const [selectedID, setSelectedID] = useState(null);
   const classes = useStyles();
-  const id = publisher.id;
-  // READ CHARACTER DATA
-  useEffect(() => (
-    fetch(BASE_URL + `characters/${id}`)
-      .then((response) => response.json())
-      .then((characterData) => setCharacters(characterData))
-  ), []);
   
-  console.log(characters);
+  function handleClick(e) {
+    console.log(selectedID);
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
-          <TableRow>
+          <TableRow >
             <TableCell>Name</TableCell>
             <TableCell align="right">Creation Year</TableCell>
             <TableCell align="right">History</TableCell>
@@ -53,15 +35,24 @@ function CharacterTable({ publisher }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
+          {characters.map((row) => (
+            <TableRow key={row.id}
+                hover
+                onClick={() => {
+                  setSelectedID(row.id);
+                }}
+                selected={selectedID === row.id}
+                classes={{ selected: classes.selected }}
+                className={classes.tableRow}
+            >
+              <TableCell component="th" scope="row" >
                 {row.name}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.creation}</TableCell>
+              <TableCell align="right">{row.history}</TableCell>
+              <TableCell align="right">{row.alignment}</TableCell>
+              <TableCell align="right">{row.wikipedia_url}</TableCell>
+              <button onClick={handleClick} >Edit</button>
             </TableRow>
           ))}
         </TableBody>
@@ -70,4 +61,4 @@ function CharacterTable({ publisher }) {
   );
 }
 
-export default CharacterTable;
+export default CharactersTable;
