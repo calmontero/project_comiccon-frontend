@@ -14,12 +14,14 @@ const useStyles = makeStyles({
   },
 });
 
-function CharactersTable({ characters }) {
+function CharactersTable({ characters, onDeleteCharacter }) {
   const [selectedID, setSelectedID] = useState(null);
   const classes = useStyles();
   
   function handleClick(e) {
-    console.log(selectedID);
+    if (selectedID) {
+      onDeleteCharacter(selectedID);
+    }
   }
 
   return (
@@ -52,7 +54,7 @@ function CharactersTable({ characters }) {
               <TableCell align="right">{row.history}</TableCell>
               <TableCell align="right">{row.alignment}</TableCell>
               <TableCell align="right">{row.wikipedia_url}</TableCell>
-              <button onClick={handleClick} >Edit</button>
+              <button onClick={handleClick} >Delete</button>
             </TableRow>
           ))}
         </TableBody>

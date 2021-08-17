@@ -2,21 +2,25 @@ import React, { useState } from "react";
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 
+const initialState = {
+    name: '',
+    creation: '',
+    history: '',
+    real_name: '',
+    alignment: '',
+    image_url: '',
+    wikipedia_url: '',
+    publisher_id: ''
+};
+
 function CharactersForm({ id, onAddCharacter }) {
-    const[character, setCharacter] = useState({
-        name: '',
-        creation: '',
-        history: '',
-        real_name: '',
-        alignment: '',
-        image_url: '',
-        wikipedia_url: '',
-        publisher_id: id
-    });
+    const[character, setCharacter] = useState(initialState);
 
     function handleSubmit(e) {
         e.preventDefault()
+        character.publisher_id = id;
         onAddCharacter(character)
+        setCharacter(initialState);
     }
 
     function handleChange(e) {
@@ -24,12 +28,12 @@ function CharactersForm({ id, onAddCharacter }) {
         updatedValue[e.target.name] = e.target.value
         setCharacter(updatedValue)
     }
-
+    /*
     function handleReset() {
         Array.from(document.querySelectorAll("input")).forEach(
             input => (input.value = "")
         );
-    }
+    }*/
 
     return (
         <div className="character-form">
@@ -97,8 +101,7 @@ function CharactersForm({ id, onAddCharacter }) {
                 onChange={handleChange}
                 />
                 <br />
-                <Button type="submit"variant="outlined" color="secondary">Create Character</Button>
-                <Button onClick={handleReset} variant="outlined" color="secondary">Reset</Button>               
+                <Button type="submit"variant="outlined" color="secondary">Create Character</Button>              
             </form>
         </div>
     );

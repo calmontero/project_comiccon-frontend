@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import CharactersForm from '../CharactersForm/CharactersForm';
 import CharactersTable from "../CharactersTable/CharactersTable";
 import "./PublisherDetails.css";
-const BASE_URL = 'http://localhost:9292/';
+const BASE_URL = 'http://localhost:9393/';
 
 function PublisherDetails() {
     const [publisher, setPublisher] = useState([]);
@@ -18,7 +18,7 @@ function PublisherDetails() {
           .then((publisherData) => setPublisher(publisherData))
     }, [id]);
     
-    // CREATE
+    // CREATE CHARACTER
     function createCharacter(character) {
         fetch(BASE_URL + "characters", {
             method: "POST",
@@ -28,12 +28,24 @@ function PublisherDetails() {
                 "Content-Type": "application/json",
             },
         })
-        .then((response) => console.log(response.json()))
-        .then((characterData) => setCharacter([...character, characterData]));
+        .then((response) => response.json())
+        .then((characterData) => {
+            const newCharacter = { ...publisher, characters: [...publisher.characters, characterData] };
+            setPublisher(newCharacter);
+        });
+    }
+
+    // DELETE CHARACTER
+    function deleteCharacter(id) {
+        fetch(BASE_URL + "characters/" + id, {
+            method: "DELETE",
+        });
+        const newCharacterList = publisher.characters.filter((p) => p.id !== id);
+        //setPublisher(publisher);
     }
 
     function populateCharacters() {
-        return <CharactersTable  characters={publisher.characters} />
+        return <CharactersTable  characters={publisher.characters} onDeleteCharacter={deleteCharacter} />
     }
 
     return (
