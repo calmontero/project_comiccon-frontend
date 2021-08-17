@@ -4,8 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     root: {
-      width: '100%',
-      maxWidth: 500,
+      width: '200%',
+      maxWidth: 1000,
+      flex: 1, 
+      textAlign: 'center',
     },
   });
 
