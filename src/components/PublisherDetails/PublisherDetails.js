@@ -7,7 +7,7 @@ const BASE_URL = 'http://localhost:9393/';
 
 function PublisherDetails() {
     const [publisher, setPublisher] = useState([]);
-    const [character, setCharacter] = useState();
+    //const [character, setCharacter] = useState();
     const params = useParams();
     const id = params.id;
 
@@ -40,7 +40,7 @@ function PublisherDetails() {
         fetch(BASE_URL + "characters/" + id, {
             method: "DELETE",
         });
-        const newCharacterList = publisher.characters.filter((p) => p.id !== id);
+        //const newCharacterList = publisher.characters.filter((p) => p.id !== id);
         //setPublisher(publisher);
     }
 
